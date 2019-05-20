@@ -2,6 +2,7 @@ package com.algorithm.arrayAndList;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 /**
  * 1.实现单链表的反转
@@ -186,6 +187,84 @@ public class LinkPractice {
         return head;
     }
 
+    /**
+     * 判断一个链表是否 回文
+     * 思路：使用辅助栈
+     * @param head
+     * @return
+     */
+    public boolean isPalidromeByStack(Node head){
+        Stack<Node> stack = new Stack<Node>();
+        Node slow = head;
+        Node fast = head;
+
+        if(fast == null || fast.next == null){
+            return true;
+        }
+        stack.push(slow);
+        while (fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            stack.push(slow);
+        }
+        // 链表的长度为偶数
+        if(fast.next != null){
+            slow = slow.next;
+        }
+        Node currentNode = slow;
+        while (currentNode != null){
+            if(currentNode.data != stack.pop().data){
+                return false;
+            }else {
+                currentNode = currentNode.next;
+            }
+        }
+        return true;
+    }
+
+
+    /**
+     * 判断一个链表是否 回文
+     * 思路：链表前半段后置后半段 原地反转，空间复杂度O（1）
+     * @param head
+     * @return
+     */
+    public boolean isPalidrome(Node head){
+        Node slow = head;
+        Node fast = head;
+        if(fast == null || fast.next == null){
+            return true;
+        }
+        while(fast.next != null && fast.next.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        Node midNode = slow;
+        // 后半段的第一个节点
+        Node firstNode = slow.next;
+        // 插入节点从第一个节点后面一个开始
+        Node currentNode = firstNode.next;
+        // 第一个节点变成最后一个节点
+        firstNode.next = null;
+        while(currentNode != null){
+            Node nextNode = currentNode.next;
+            currentNode.next = midNode.next;
+            midNode.next = currentNode;
+            currentNode = nextNode;
+        }
+        slow = head;
+        fast = midNode.next;
+        while(fast != null){
+            if(fast.data != slow.data){
+                return false;
+            }
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return true;
+
+    }
+
 
     public void add(int value) {
         Node newNode = new Node(value, null);
@@ -269,16 +348,18 @@ public class LinkPractice {
         Node head2 = new Node(2, null);
         LinkPractice linkPractice = new LinkPractice();
         linkPractice.add(head, new Node(3, null));
-        linkPractice.add(head, new Node(5, null));
-        linkPractice.add(head, new Node(7, null));
+//        linkPractice.add(head, new Node(5, null));
+        linkPractice.add(head, new Node(3, null));
+        linkPractice.add(head, new Node(1, null));
         linkPractice.add(head2, new Node(4, null));
         linkPractice.add(head2, new Node(6, null));
 //        linkPractice.add(6, linkPractice.findByIndex(2));
         linkPractice.printAll(head);
         System.out.println();
+        System.out.println(linkPractice.isPalidrome(head));
 //        linkPractice.printAll(head2);
 //        System.out.println();
-        linkPractice.printAll(linkPractice.deleteLastNth(head, 2));
+//        linkPractice.printAll(linkPractice.deleteLastNth(head, 2));
 
 //        linkPractice.printAll(linkPractice.mergeTwoLists(head, head2));
 
