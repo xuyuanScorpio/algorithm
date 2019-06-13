@@ -58,7 +58,7 @@ public class LinkedListStack<T> {
         stack.push("d");
 
         while (stack.top != null){
-            System.out.println(stack.pop());
+            System.out.println(stack.pop().toString());
         }
     }
 }

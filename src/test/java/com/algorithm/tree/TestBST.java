@@ -1,4 +1,4 @@
-package tree;
+package com.algorithm.tree;
 
 import com.algorithm.tree.Entry;
 import com.algorithm.tree.Map;

@@ -1,4 +1,4 @@
-package arrayAndList;
+package com.algorithm.arrayAndList;
 
 import org.junit.Test;
 

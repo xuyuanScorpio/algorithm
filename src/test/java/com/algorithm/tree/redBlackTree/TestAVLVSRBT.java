@@ -1,4 +1,4 @@
-package tree.redBlackTree;
+package com.algorithm.tree.redBlackTree;
 
 import com.algorithm.tree.Map;
 import org.junit.Test;
